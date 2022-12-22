@@ -141,13 +141,33 @@ struct DoubleType
     }
 };
 
-// struct IntType
-// {
-//     int add( int lhs, int rhs );
-//     int subtract( int lhs, int rhs );
-//     int multiply( int lhs, int rhs );
-//     int divide( int lhs, int rhs );
-// };
+struct IntType
+{
+    int add( int lhs, int rhs )
+    {
+        return lhs + rhs;
+    }
+
+    int subtract( int lhs, int rhs )
+    {
+        return lhs - rhs;
+    }
+
+    int multiply( int lhs, int rhs )
+    {
+        return lhs * rhs;
+    }
+
+    int divide( int lhs, int rhs )
+    {
+        if (rhs == 0) 
+        {
+            std::cout << "error, integer division by zero will crash the program!" << std::endl << "returning lhs" << std::endl;
+            return lhs;
+        }
+        return lhs / rhs;
+    }
+};
 
 int main() 
 {
@@ -173,16 +193,16 @@ int main()
     std::cout << "result of db.multiply(): " << db.multiply( 123.456, 0.0) << std::endl;
     std::cout << "result of db.divide(): " << db.divide( 123.456, 0.0) << std::endl;
 
-    // IntType i;
-    // std::cout << "result of i.add(): " << i.add( 10, 20) << std::endl;
-    // std::cout << "result of i.subtract(): " << i.subtract( 10, 20) << std::endl;
-    // std::cout << "result of i.multiply(): " << i.multiply( 10, 20) << std::endl;
-    // std::cout << "result of i.divide(): " << i.divide( 10, 20) << std::endl;
+    IntType i;
+    std::cout << "result of i.add(): " << i.add( 10, 20) << std::endl;
+    std::cout << "result of i.subtract(): " << i.subtract( 10, 20) << std::endl;
+    std::cout << "result of i.multiply(): " << i.multiply( 10, 20) << std::endl;
+    std::cout << "result of i.divide(): " << i.divide( 10, 20) << std::endl;
 
-    // std::cout << "result of i.add(): " << i.add( 10, 0) << std::endl;
-    // std::cout << "result of i.subtract(): " << i.subtract( 10, 0) << std::endl;
-    // std::cout << "result of i.multiply(): " << i.multiply( 10, 0) << std::endl;
-    // std::cout << "result of i.divide(): " << i.divide( 10, 0) << std::endl;
+    std::cout << "result of i.add(): " << i.add( 10, 0) << std::endl;
+    std::cout << "result of i.subtract(): " << i.subtract( 10, 0) << std::endl;
+    std::cout << "result of i.multiply(): " << i.multiply( 10, 0) << std::endl;
+    std::cout << "result of i.divide(): " << i.divide( 10, 0) << std::endl;
 
     std::cout << "good to go!" << std::endl;
 }
