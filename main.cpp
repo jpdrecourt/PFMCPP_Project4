@@ -15,6 +15,7 @@ New/This/Pointers/References conclusion
  */
 
 #include <iostream>
+#include <cmath>
 
 struct A {};
 
@@ -119,6 +120,9 @@ good to go!
  Wait for my code review.
  */
 
+struct DoubleType;
+struct IntType;
+
 struct FloatType
 {
     float* value;
@@ -135,24 +139,36 @@ struct FloatType
         return *this;
     }
 
+    FloatType& add( DoubleType& dt);
+    FloatType& add( IntType& dt);
+    
     FloatType& subtract( float rhs )
     {
         *value -= rhs;
         return *this;    
     }
 
+    FloatType& subtract( DoubleType& dt);    
+    FloatType& subtract( IntType& dt);
+
     FloatType& multiply( float rhs )
     {
         *value *= rhs;
         return *this;    
     }
+
+    FloatType& multiply( DoubleType& dt);
+    FloatType& multiply( IntType& dt);
     
     FloatType& divide( float rhs )
     {
-        if (rhs == 0.0f) std::cout << std::endl << "warning, floating point division by zero returns 'inf' !" << std::endl;
+        if (rhs == 0.0f) std::cout << "warning: floating point division by zero!" << std::endl;
         *value /= rhs;
         return *this;
     }
+
+    FloatType& divide( DoubleType& dt);
+    FloatType& divide( IntType& dt);
 };
 
 struct DoubleType
@@ -170,12 +186,18 @@ struct DoubleType
         *value += rhs;
         return *this;    
     }
-    
+
+    DoubleType& add( FloatType& ft);
+    DoubleType& add( IntType& it);
+
     DoubleType& subtract( double rhs )
     {
         *value -= rhs;
         return *this;
     }
+
+    DoubleType& subtract( FloatType& ft);
+    DoubleType& subtract( IntType& it);
 
     DoubleType& multiply( double rhs )
     {
@@ -183,12 +205,18 @@ struct DoubleType
         return *this;
     }
 
+    DoubleType& multiply( FloatType& ft);
+    DoubleType& multiply( IntType& it);
+
     DoubleType& divide( double rhs )
     {
-        if (rhs == 0.0) std::cout << std::endl << "warning, floating point division by zero returns 'inf' !" << std::endl;
+        if (rhs == 0.0) std::cout << "warning: floating point division by zero!" << std::endl;
         *value /= rhs;
         return *this;
     }
+
+    DoubleType& divide( FloatType& ft);
+    DoubleType& divide( IntType& it);
 };
 
 struct IntType
@@ -200,11 +228,15 @@ struct IntType
         delete value;
         value = nullptr;
     }
+
     IntType& add( int rhs )
     {
         *value += rhs;
         return *this;
     }
+
+    IntType& add( FloatType& ft);
+    IntType& add( DoubleType& dt);
 
     IntType& subtract( int rhs )
     {
@@ -212,17 +244,23 @@ struct IntType
         return *this;
     }
 
+    IntType& subtract( FloatType& ft);
+    IntType& subtract( DoubleType& dt);
+
     IntType& multiply( int rhs )
     {
         *value *= rhs;
         return *this;
     }
 
+    IntType& multiply( FloatType& ft);
+    IntType& multiply( DoubleType& dt);
+
     IntType& divide( int rhs )
     {
         if (rhs == 0) 
         {
-            std::cout << "error, integer division by zero will crash the program!" << std::endl;
+            std::cout << "error: integer division by zero is an error and will crash the program!" << std::endl;
         }
         else
         {
@@ -230,7 +268,130 @@ struct IntType
         }
         return *this;
     }
+
+    IntType& divide( FloatType& ft);
+    IntType& divide( DoubleType& dt);
 };
+
+FloatType& FloatType::add ( DoubleType& dt)
+{
+    return add( *(dt.value) );
+}
+
+FloatType& FloatType::add ( IntType& it)
+{
+    return add( *(it.value) );
+}
+
+FloatType& FloatType::subtract ( DoubleType& dt)
+{
+    return subtract( *(dt.value) );
+}
+
+FloatType& FloatType::subtract ( IntType& it)
+{
+    return subtract( *(it.value) );
+}
+
+FloatType& FloatType::multiply ( DoubleType& dt)
+{
+    return multiply( *(dt.value) );
+}
+
+FloatType& FloatType::multiply ( IntType& it)
+{
+    return multiply( *(it.value) );
+}
+
+FloatType& FloatType::divide ( DoubleType& dt)
+{
+    return divide( *(dt.value) );
+}
+
+FloatType& FloatType::divide ( IntType& it)
+{
+    return divide( *(it.value) );
+}
+
+DoubleType& DoubleType::add( FloatType& ft )
+{
+    return add( *(ft.value) );
+}
+
+DoubleType& DoubleType::add( IntType& it )
+{
+    return add( *(it.value) );
+}
+
+DoubleType& DoubleType::subtract( FloatType& ft )
+{
+    return subtract( *(ft.value) );
+}
+
+DoubleType& DoubleType::subtract( IntType& it )
+{
+    return subtract( *(it.value) );
+}
+
+DoubleType& DoubleType::multiply( FloatType& ft )
+{
+    return multiply( *(ft.value) );
+}
+
+DoubleType& DoubleType::multiply( IntType& it )
+{
+    return multiply( *(it.value) );
+}
+
+DoubleType& DoubleType::divide( FloatType& ft )
+{
+    return divide( *(ft.value) );
+}
+
+DoubleType& DoubleType::divide( IntType& it )
+{
+    return divide( *(it.value) );
+}
+
+IntType& IntType::add( FloatType& ft )
+{
+    return add( *(ft.value) );
+}
+
+IntType& IntType::add( DoubleType& dt )
+{
+    return add( *(dt.value) );
+}
+
+IntType& IntType::subtract( FloatType& ft )
+{
+    return subtract( *(ft.value) );
+}
+
+IntType& IntType::subtract( DoubleType& dt )
+{
+    return subtract( *(dt.value) );
+}
+
+IntType& IntType::multiply( FloatType& ft )
+{
+    return multiply( *(ft.value) );
+}
+
+IntType& IntType::multiply( DoubleType& dt )
+{
+    return multiply( *(dt.value) );
+}
+
+IntType& IntType::divide( FloatType& ft )
+{
+    return divide( *(ft.value) );
+}
+
+IntType& IntType::divide( DoubleType& dt )
+{
+    return divide( *(dt.value) );
+}
 
 int main()
 {   
@@ -271,9 +432,9 @@ int main()
     std::cout << "Initial value of it: " << *it.value << std::endl;
     // --------
     std::cout << "Use of function concatenation (mixed type arguments) " << std::endl;
-    // std::cout << "New value of dt = (dt * it) / 5.0f + ft = " << (dt.multiply(it).divide(5.0f).add(ft).value) << std::endl;
+    std::cout << "New value of dt = (dt * it) / 5.0f + ft = " << *(dt.multiply(it).divide(5.0f).add(ft).value) << std::endl;
 
-    // std::cout << "---------------------\n" << std::endl; 
+    std::cout << "---------------------\n" << std::endl; 
     
     // Intercept division by 0
     // --------
