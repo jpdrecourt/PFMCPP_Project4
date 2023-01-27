@@ -118,7 +118,7 @@ struct FloatType
     
     FloatType& divide( float rhs );
 
-    operator float() {return *value;}
+    operator float() const {return *value;}
 
     private:
         float* value;
@@ -126,6 +126,7 @@ struct FloatType
 
 FloatType& FloatType::add( float rhs )
 {
+    
     *value += rhs;
     return *this;
 }
@@ -166,7 +167,7 @@ struct DoubleType
 
     DoubleType& divide( double rhs );
 
-    operator double() {return *value;}
+    operator double() const {return *value;}
 
     private:
         double* value;
@@ -214,7 +215,7 @@ struct IntType
 
     IntType& divide( int rhs );
 
-    operator int() {return *value;}
+    operator int() const {return *value;}
 
     private:
         int* value;
